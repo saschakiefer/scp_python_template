@@ -1,0 +1,15 @@
+{
+  "xsappname": "cflp-csd-static-demo",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.user",
+      "description": "User"
+    }
+  ],
+  "role-templates": []
+}

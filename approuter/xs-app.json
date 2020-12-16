@@ -1,0 +1,15 @@
+{
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "/(.*)$",
+      "authenticationType": "xsuaa",
+      "target": "$1",
+      "destination": "core-py",
+      "csrfProtection": false
+    }
+  ]
+}

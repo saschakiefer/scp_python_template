@@ -1,0 +1,29 @@
+applications:
+#- name: flask-template-core
+- name: static-demo-core
+  host: cflp-csd-static-demo
+  path: ./core-py/
+  env:
+    FLASK_APP: app.py
+    FLASK_DEBUG: 1
+    FLASK_CONFIG: development
+  memory: 128M
+  command: flask run -h 0.0.0.0 -p $PORT
+  services:
+   - myuaa
+
+- name: web
+  host: cflp-csd-static-demo-ar
+  path: ./approuter
+  memory: 128M
+  env:
+    destinations: >
+      [
+        {
+          "name": "core-py",
+          "url": "https://cflp-csd-static-demo.cfapps.sap.hana.ondemand.com",
+          "forwardAuthToken": true
+        }
+      ]
+  services:
+   - myuaa
