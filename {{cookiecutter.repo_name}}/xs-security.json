@@ -1,0 +1,29 @@
+{
+  "xsappname": "{{ cookiecutter.scp_app_name }}",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.user",
+      "description": "{{ cookiecutter.scp_app_name }} user"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "User",
+      "description": "Required to logon the application",
+      "scope-references": [
+        "uaa.user",
+        "$XSAPPNAME.user"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://{{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}.{{ cookiecutter.scp_app_domain }}"
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "web-approuter",
+  "name": "{{ cookiecutter.approuter_module_name }}",
   "dependencies": {
     "@sap/approuter": "latest"
   },

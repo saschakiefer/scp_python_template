@@ -7,9 +7,10 @@
     {
       "source": "/(.*)$",
       "authenticationType": "xsuaa",
+      "scope": "uaa.user",
       "target": "$1",
-      "destination": "core-py",
-      "csrfProtection": false
+      "destination": "core",
+      "csrfProtection": true
     }
   ]
 }

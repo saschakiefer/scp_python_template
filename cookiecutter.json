@@ -1,0 +1,10 @@
+{
+  "project_name": "Simple App",
+  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+  "approuter_module_name": "approuter",
+  "python_module_name": "{{ cookiecutter.repo_name|lower|replace('-', '_') }}",
+  "scp_app_name": "{{ cookiecutter.python_module_name|lower|replace(' ', '-')|replace('_', '-') }}",
+  "scp_app_host_prefix": "",
+  "scp_app_domain": "",
+  "uaa_service_instance_name": "myuaa"
+}

@@ -1,0 +1,31 @@
+applications:
+- name: {{ cookiecutter.scp_app_name }}-core
+  routes:
+    - route: {{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}-core.{{ cookiecutter.scp_app_domain }}
+  path: ./{{ cookiecutter.python_module_name }}
+  env:
+    # Change this according to your needs
+    FLASK_APP: app.py
+    FLASK_DEBUG: 1
+    FLASK_CONFIG: development
+  memory: 128M
+  command: flask run -h 0.0.0.0 -p $PORT
+  services:
+   - {{ cookiecutter.uaa_service_instance_name }}
+
+- name: {{ cookiecutter.scp_app_name }}
+  routes:
+    - route: {{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}.{{ cookiecutter.scp_app_domain }}
+  path: ./{{ cookiecutter.approuter_module_name }}
+  memory: 128M
+  env:
+    destinations: >
+      [
+        {
+          "name": "core",
+          "url": "https://{{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}-core.{{ cookiecutter.scp_app_domain }}",
+          "forwardAuthToken": true
+        }
+      ]
+  services:
+   - {{ cookiecutter.uaa_service_instance_name }}
