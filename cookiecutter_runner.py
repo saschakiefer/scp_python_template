@@ -26,4 +26,4 @@ except FileNotFoundError:
     pass
 
 
-cookiecutter(curdir, extra_context=extra_context, overwrite_if_exists=False)
+cookiecutter(curdir, extra_context=extra_context, overwrite_if_exists=True)

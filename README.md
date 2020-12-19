@@ -8,6 +8,7 @@ PaaS application ready to deploy to [SAP Cloud Platform](https://www.sap.com/ger
 - Flask application container with `main` blueprint
 - AppRouter module to protect the application from unauthorized users
 - Example Role implemented
+- Local test possible
 
 ## Prerequisite
 

@@ -1,0 +1,10 @@
+{
+  "destinations": [
+    {
+      "name": "core",
+      "url": "http://localhost:4000",
+      "forwardAuthToken": true,
+      "strictSSL": false
+    }
+  ]
+}

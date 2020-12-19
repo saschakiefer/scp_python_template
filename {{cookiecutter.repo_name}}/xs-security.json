@@ -1,5 +1,6 @@
 {
   "xsappname": "{{ cookiecutter.scp_app_name }}",
+  "description": "This is the description of the application",
   "tenant-mode": "dedicated",
   "scopes": [
     {
@@ -23,7 +24,8 @@
   ],
   "oauth2-configuration": {
     "redirect-uris": [
-      "https://{{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}.{{ cookiecutter.scp_app_domain }}"
+      "https://{{ cookiecutter.scp_app_host_prefix }}{{ cookiecutter.scp_app_name }}.{{ cookiecutter.scp_app_domain }}",
+      "http://localhost:5000"
     ]
   }
 }
