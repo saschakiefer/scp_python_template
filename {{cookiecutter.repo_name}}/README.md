@@ -11,8 +11,12 @@ Before you can deploy the application, you have to create a `xsuaa` service inst
 cf create-service xsuaa application {{ cookiecutter.uaa_service_instance_name }} -c xs-security.json
 ```
 
+**Note**: This step is not needed, when you use the MTA Deployment Tool `mbt`
+
 ### Deployment
 You can deploy the app with `cf push`.
+
+Alternatively you can use the MTA Deployment Tool with `mbt build` and `cf deploy`.
 
 ### Post Deployment
 
@@ -32,6 +36,8 @@ Create a service key for accessing XSUAA and get the key values:
 cf create-service-key {{ cookiecutter.uaa_service_instance_name }} {{ cookiecutter.uaa_service_instance_name }}-key
 cf service-key {{ cookiecutter.uaa_service_instance_name }} {{ cookiecutter.uaa_service_instance_name }}-key
 ```
+
+**Hint**: You can also call the provided shell script `shell_scripts/create_xsuaa_service_keys.sh`.
 
 Copy the output ant place it into the `{{cookiecutter.approuter_module_name}}/default-service.json` file 
 (replace the empty object with the object you get from the key).
@@ -66,3 +72,7 @@ Both needs to be set in the environment you run Flask in. If you want to debug t
 _HINT_: Watch out for the last `}` in the output and make sure, that you copy the correct `json` object.
 
 **IMPORTANT**: Make sure, that your Flask app listens on port `4000`. If you want to use a different port, make sure, that you configure the correct one in the `{{cookiecutter.approuter_module_name}}/default-env.json` file.
+
+## Known Issues
+
+- When using the MTA Deployment, the start of the `{{ cookiecutter.scp_app_name }}-core` app fails with an error (_"ERR Failed to stage build: No process types returned from stager"_). You have to start the app manually in the cockpit and re-run `cf deploy`

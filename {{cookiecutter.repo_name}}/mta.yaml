@@ -1,0 +1,51 @@
+# Find a full docu of the descriptor here: https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/4050fee4c469498ebc31b10f2ae15ff2.html
+_schema-version: 3
+ID: {{ cookiecutter.scp_app_name }}
+version: 0.0.1
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  - name: {{ cookiecutter.scp_app_name }}-core
+    type: python
+    path: {{ cookiecutter.python_module_name }}
+    parameters:
+      memory: 512M
+      disk-quota: 512M
+      command: flask run -h 0.0.0.0 -p $PORT
+    properties:
+      FLASK_APP: app.py
+      FLASK_DEBUG: 1
+      FLASK_CONFIG: development
+    provides:
+      - name: core_url
+        properties:
+          url: ${default-url}
+    requires:
+      - name: {{ cookiecutter.uaa_service_instance_name }}
+
+  - name: {{ cookiecutter.scp_app_name }}
+    type: approuter.nodejs
+    path: {{ cookiecutter.approuter_module_name }}
+    deployed-after:
+      - {{ cookiecutter.scp_app_name }}-core
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: core_url
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          strictSSL: false
+          name: core
+          url: ~{url}
+      - name: {{ cookiecutter.uaa_service_instance_name }}
+
+resources:
+  - name: {{ cookiecutter.uaa_service_instance_name }}
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
