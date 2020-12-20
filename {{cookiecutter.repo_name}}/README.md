@@ -75,4 +75,4 @@ _HINT_: Watch out for the last `}` in the output and make sure, that you copy th
 
 ## Known Issues
 
-- When using the MTA Deployment, the start of the `{{ cookiecutter.scp_app_name }}-core` app fails with an error (_"ERR Failed to stage build: No process types returned from stager"_). You have to start the app manually in the cockpit and re-run `cf deploy`
+None

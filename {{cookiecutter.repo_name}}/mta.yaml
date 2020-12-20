@@ -12,7 +12,6 @@ modules:
     parameters:
       memory: 512M
       disk-quota: 512M
-      command: flask run -h 0.0.0.0 -p $PORT
     properties:
       FLASK_APP: app.py
       FLASK_DEBUG: 1
