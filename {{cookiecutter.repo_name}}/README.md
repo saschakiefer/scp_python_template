@@ -3,10 +3,13 @@
 Simple SAP Cloud Platform PaaS App. Written in Python with Flask and protected by the AppRouter.
 
 ## Deployment
+
 ### Pre Deployment
+
 You have to be logged in to your cloud platform service account.
 
 Before you can deploy the application, you have to create a `xsuaa` service instance with
+
 ```bash
 cf create-service xsuaa application {{ cookiecutter.uaa_service_instance_name }} -c xs-security.json
 ```
@@ -14,6 +17,7 @@ cf create-service xsuaa application {{ cookiecutter.uaa_service_instance_name }}
 **Note**: This step is not needed, when you use the MTA Deployment Tool `mbt`
 
 ### Deployment
+
 You can deploy the app with `cf push`.
 
 Alternatively you can use the MTA Deployment Tool with `mbt build` and `cf deploy`.
@@ -24,14 +28,19 @@ After the deployment you have to create a Role Collection which contains the `Us
 This role collection needs to be assigned to the user to logon.
 
 ## Local Testing
+
 ### Prerequisite
+
 - `node` version: `^12.0.0`
 - you have deployed the application once to CF
 - you are logged on to your SCP space
 
 ### AppRouter
+
 #### Configure Connection to XSUAA
+
 Create a service key for accessing XSUAA and get the key values:
+
 ```bash
 cf create-service-key {{ cookiecutter.uaa_service_instance_name }} {{ cookiecutter.uaa_service_instance_name }}-key
 cf service-key {{ cookiecutter.uaa_service_instance_name }} {{ cookiecutter.uaa_service_instance_name }}-key
@@ -39,8 +48,9 @@ cf service-key {{ cookiecutter.uaa_service_instance_name }} {{ cookiecutter.uaa_
 
 **Hint**: You can also call the provided shell script `shell_scripts/create_xsuaa_service_keys.sh`.
 
-Copy the output ant place it into the `{{cookiecutter.approuter_module_name}}/default-service.json` file 
+Copy the output and place it into the `{{cookiecutter.approuter_module_name}}/default-service.json` file
 (replace the empty object with the object you get from the key).
+You can use the `{{cookiecutter.approuter_module_name}}/default-service-template.json` as a template for `{{cookiecutter.approuter_module_name}}/default-service.json`, since this is ignored in `.gitignore`.
 
 #### Run the AppRouter
 
@@ -55,15 +65,18 @@ The AppRouter is no ready to serve requests on `http://localhost:5000`.
 ### Run/Debug the Flask Application
 
 #### Install Dependent Packages
+
 Create a virtual environment and install the dependent packages
+
 ```bash
 python3 -m venv .venv
-pip install -r {{ cookiecutter.python_module_name }}/requirements.txt
 source .venv/bin/activate
+pip install -r {{ cookiecutter.python_module_name }}/requirements.txt
 ```
 
 #### Set Environment Variables
-To function correctly, the `xssec` library needs the same environment variables as it finds in the Cloud Foundry container. 
+
+To function correctly, the `xssec` library needs the same environment variables as it finds in the Cloud Foundry container.
 
 You can get these variables with `cf env {{ cookiecutter.scp_app_name }}-core`.
 
